@@ -15,6 +15,7 @@ CREATE TABLE producto (
  FOREIGN KEY (codigo_fabricante) REFERENCES fabricante(codigo)
 );
 
+INSERT INTO producto (nombre, precio, codigo_fabricante) VALUES('Altavoces', 70, 2);
 INSERT INTO fabricante VALUES(1, 'Asus');
 INSERT INTO fabricante VALUES(2, 'Lenovo');
 INSERT INTO fabricante VALUES(3, 'Hewlett-Packard');
