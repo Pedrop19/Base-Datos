@@ -15,7 +15,10 @@ CREATE TABLE producto (
  FOREIGN KEY (codigo_fabricante) REFERENCES fabricante(codigo)
 );
 
+select codigo from producto
+order by codigo desc;
 INSERT INTO producto (nombre, precio, codigo_fabricante) VALUES('Altavoces', 70, 2);
+INSERT INTO producto (nombre, precio, codigo_fabricante) VALUES(13, 'Altavoces', 90, 3);
 INSERT INTO fabricante VALUES(1, 'Asus');
 INSERT INTO fabricante VALUES(2, 'Lenovo');
 INSERT INTO fabricante VALUES(3, 'Hewlett-Packard');
@@ -135,22 +138,3 @@ WHERE nombre LIKE '%Monitor%' AND precio < 215;
 SELECT nombre, precio FROM producto
 WHERE precio >= 180
 ORDER BY precio DESC, nombre ASC;
-
-SELECT * FROM producto
-WHERE codigo_fabricante IN (
-	SELECT codigo
-    FROM fabricante
-    WHERE nombre = 'Asus');
-    
-SELECT nombre,precio FROM producto
-WHERE codigo_fabricante NOT IN (
-	SELECT codigo FROM fabricante);
-
-SELECT nombre
-FROM fabricante
-WHERE codigo IN (
-	SELECT codigo_fabricante
-    FROM producto
-    group BY codigo_fabricante
-having count(*) > 2)
-

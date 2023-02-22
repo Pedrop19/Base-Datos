@@ -174,7 +174,7 @@ where saldo > 300;
 -- 1. Contar el número de usuarios por marca de teléfono
 SELECT marca, usuario, count(usuario) 
 FROM tblUsuarios
-group BY marca;
+group BY marca;7
 -- 2. Listar nombre y teléfono de los usuarios con teléfono que no sea de la marca LG
 select usuario, telefono from tblUsuarios
 where marca != 'LG';
@@ -207,4 +207,4 @@ select usuario, telefono from tblUsuarios
 where compañia not in('MOTOROLA','NOKIA');
 -- 12. Calcular la suma de los saldos de los usuarios de la compañía telefónica TELCE
 select sum(saldo) from tblUsuarios
-where compañia = "TELCE";
+where compañia = "TELCE78";
