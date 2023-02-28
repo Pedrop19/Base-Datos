@@ -71,9 +71,10 @@ from pais
 group by continente, formagobierno;
 
 -- 13 Lista los continentes cuya suma de superficie de países es mayor de 5 millones
-select continente, superficie
+select sum(superficie), continente
 from pais
-where superficie > 5000000;
+group by continente
+having sum(superficie) > 5000000;
 
 -- 14. Capital de cada país
 select c.nombre as nombreCapital, p.nombre as nombrePais
