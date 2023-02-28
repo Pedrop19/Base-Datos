@@ -1,3 +1,4 @@
+use world;
 -- 1. Mostrar nombre de continente y número de países de ese continente(contar).
 select count(*) as paises, continente
 from pais
@@ -10,22 +11,25 @@ from pais;
 -- 3. Mostrar los idiomas que se hablan en España (Spain) y el porcentaje
 -- que se habla cada idioma. Ordenar de forma descendente por el campo porcentaje
 select i.idioma, i.porcentaje
-from idiomaspais i , pais p
-where i.cod_pais = p.codigo and p.nombre ='Spain';
+from idiomaspais i
+inner join pais p
+on i.cod_pais = p.codigo and p.nombre ='Spain';
 
 -- 4. Mostrar todas las ciudades de España (Spain) junto a su población.
 -- Debe mostrarse nombre de país, de ciudad y población de esta.
 select c.nombre, c.poblacion, p.nombre as Pais
-from ciudad c, pais p
-where c.codigo_pais = p.codigo and p.nombre ='Spain';
+from ciudad c
+inner join pais p
+on c.codigo_pais = p.codigo and p.nombre ='Spain';
 
 -- 5. Mostrar todas las ciudades de España (Spain) junto a su población.
 -- Debe mostrarse nombre de país, población del país, nombre de ciudad y
 -- población de esta. Añadir también el porcentaje que supone la población
 -- de la ciudad con respecto a la del país.
 select c.nombre, c.poblacion as pCiudad, p.nombre as Pais, p.poblacion as PoblacionPais, (c.poblacion/p.poblacion*100)
-from ciudad c, pais p
-where c.codigo_pais = p.codigo and p.nombre ='Spain';
+from ciudad c
+inner join pais p
+on c.codigo_pais = p.codigo and p.nombre ='Spain';
 
 -- 6. Mostrar datos de los 10 países con mayor población. Nombre de país, continente, población
 select nombre, continente, poblacion
@@ -99,16 +103,18 @@ select i.idioma, p.nombre as Pais, c.nombre as Ciudad
 from pais p 
 inner join idiomaspais i on i.cod_pais = p.codigo and es_oficial = 't'
 inner join  ciudad c  on c.codigo_pais = p.codigo;
+
 -- 19. Lista las ciudades que están en continentes cuya esperanza de vida media es menor a 60 años
-SELECT c.nombre
-FROM ciudad c
-JOIN pais p ON c.codigo_pais = p.codigo
-WHERE p.continente IN (
-    SELECT continente
-    FROM pais
-    GROUP BY continente
-    HAVING AVG(esperanzaVida) < 60
+select c.nombre
+from ciudad c
+inner join pais p on c.codigo_pais = p.codigo
+where p.continente in (
+    select continente
+    from pais
+    group by continente
+    having AVG(esperanzaVida) < 60
 );
+
 -- 20. Lista las capitales que tengan una población inferior a 10.000
 select c.nombre as nombreCapital, p.nombre as nombrePais, c.poblacion as poblacion
 from pais p
