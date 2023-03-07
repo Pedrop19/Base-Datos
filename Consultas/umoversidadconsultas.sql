@@ -48,8 +48,8 @@ from profesor p
 left join departamento d on p.id_departamento = d.id
 order by d.nombre desc, p.apellido1 desc, p.nombre desc;
 -- 12. Devuelve un listado con todos los alumnos que se han matriculado en alguna asignatura durante el curso escolar 2015/2016.
-select al.* from alumno al, curso_escolar ce, alumno_se_matricula als
-where als.id_alumno = al.id and als.id_curso_escolar = ce.id and year(ce.anyo_inicio) = 2015 and year(ce.anyo_fin) = 2016;
+select al.nombre as "Nombre Alumno", a.nombre as "Asignatura" from alumno al, curso_escolar ce, alumno_se_matricula als, asignatura a
+where als.id_alumno = al.id and als.id_curso_escolar = ce.id and als.id_asignatura = a.id and year(ce.anyo_inicio) = 2015 and year(ce.anyo_fin) = 2016;
 -- 13. Devuelve un listado con los departamentos que no tienen profesores asociados.
 select d.*, p.id_departamento from departamento d
 left join profesor p on p.id_departamento = d.id
@@ -62,12 +62,12 @@ and asi.id_grado = g.id
 and a.sexo = 'M'
 and g.nombre = "Grado en Ingeniería Informática (Plan 2015)";
 -- 15. Devuelve un listado con los id profesores que no imparten ninguna asignatura.
-select p.id from asignatura a
+select p.* from asignatura a
 right join profesor p on a.id_profesor = p.id
 where a.id_profesor is null;
 -- 16. Devuelve un listado con todos los departamentos y el número de profesores que hay en cada uno de ellos.
+-- Ten en cuenta que pueden existir departamentos que no tienen profesores asociados.
+-- Estos departamentos también tienen que aparecer en el listado.
 select d.* from departamento d, profesor p
 where p.id_departamento = d.id
 group by p.id;
--- Ten en cuenta que pueden existir departamentos que no tienen profesores asociados.
--- Estos departamentos también tienen que aparecer en el listado.
