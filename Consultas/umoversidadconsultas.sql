@@ -1,3 +1,4 @@
+use universidadb;
 -- 1. Devuelve un listado con el primer apellido, segundo apellido y el nombre de todos los alumnos. El listado
 -- deberá estar ordenado alfabéticamente de menor a mayor por el primer apellido, segundo apellido y nombre.
 select apellido1, apellido2, nombre from alumno
@@ -68,6 +69,7 @@ where a.id_profesor is null;
 -- 16. Devuelve un listado con todos los departamentos y el número de profesores que hay en cada uno de ellos.
 -- Ten en cuenta que pueden existir departamentos que no tienen profesores asociados.
 -- Estos departamentos también tienen que aparecer en el listado.
-select d.* from departamento d, profesor p
-where p.id_departamento = d.id
-group by p.id;
+select d.*, count(p.id) from departamento d
+left join profesor p on d.id = p.id_departamento
+or p.id_departamento is null
+group by d.id;
