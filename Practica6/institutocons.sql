@@ -8,9 +8,10 @@ inner join evaluacion e on e.id_alumno = a.id_alumno and pr.nombre = 'Badajoz'
 group by a.id_alumno
 having avg(e.nota) > 5;
 -- b) Nombre del grupo que tiene más alumnos.
-select g.nombre from grupo g, alumno a
-where a.id_grupo = g.id_grupo
-order by a.id_alumno desc
+select g.nombre, count(g.id_grupo) as num from grupo g
+inner join alumno a on a.id_grupo = g.id_grupo
+group by g.id_grupo
+order by num desc
 limit 1;
 -- c) Escribe la sentencia SQL para averiguar de qué 3 localidades son los alumnos con mejor nota media.
 select l.nombre, avg(e.nota) as media from localidad l
