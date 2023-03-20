@@ -18,7 +18,7 @@ select l.nombre, avg(e.nota) as media from localidad l
 inner join familia f on l.id_localidad = f.id_localidad
 inner join alumno a on f.id_familia = a.id_familia
 inner join evaluacion e on e.id_alumno = a.id_alumno
-group by l.id_localidad
+group by a.id_alumno
 order by media desc
 limit 3;
 -- d) Nota media por nivel educativo.
